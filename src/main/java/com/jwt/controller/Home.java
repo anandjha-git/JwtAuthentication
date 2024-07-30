@@ -11,4 +11,10 @@ public class Home {
         text+="this page is not allowed for unauthenticated users";
         return text;
     }
+
+    @RequestMapping("/getUser")
+    public String getUser(){
+
+        return "{\"name\":\"Anand\"}";
+    }
 }

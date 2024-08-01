@@ -24,6 +24,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private  JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private  JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     /*
         @EnableWebSecurity is a Spring Security annotation that enables web security configuration.
     */
@@ -68,7 +71,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/token").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
